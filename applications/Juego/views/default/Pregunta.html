@@ -1,0 +1,18 @@
+{{extend 'layout.html'}}
+<h1>Preguntas</h1>
+<h3>{{=Tema.Titulo}}</h3>
+<br>
+{{=form}}
+<table class='table'>
+    <tr>
+        <th>Pregunta</th>
+        <th>Respuesta</th>
+        </tr>
+{{for Pregunta in rows:}}
+<tr>
+    <td>{{=Pregunta.pregunta}}</td>
+    <td>{{=Pregunta.respuesta}}</td>
+</tr>
+    {{pass}}
+
+</table>

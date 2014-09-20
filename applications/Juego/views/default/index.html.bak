@@ -1,0 +1,8 @@
+{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{extend 'layout.html'}}
+
+<h3><a href={{=URL('Tema')}}>Agregar Tema</a></h3>
+<h1>Temas</h1>
+{{for temas in rows:}}
+ <a href={{=URL('Pregunta',args=temas.Titulo)}}>{{=temas.Titulo}}</a>
+{{pass}}
