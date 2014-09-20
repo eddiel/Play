@@ -87,9 +87,8 @@ def GetTema():
 
 @auth.requires(auth.user_id==1 or request.client=='127.0.0.1', requires_login=True)
 def Tema():
-    form=SQLFORM(db.Tema).process()
-    if form.accepted: redirect(URL('Tema'))
-    grid=SQLFORM.grid(db.Tema)
+    form=SQLFORM(db.Tema).process(next='Pregunta/[Titulo]')
+    rows=db(db.Tema).select()
     return locals()
 
 @auth.requires(auth.user_id==1 or request.client=='127.0.0.1', requires_login=True)

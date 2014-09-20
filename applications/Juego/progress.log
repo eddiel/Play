@@ -91,3 +91,13 @@
 [2014-09-20 16:03:35] EDIT Juego/views/default/index.html: 0
 [2014-09-20 16:04:03] EDIT Juego/views/default/index.html: 1
 [2014-09-20 16:05:22] EDIT Juego/views/default/index.html: 0
+[2014-09-20 17:28:40] EDIT Juego/controllers/default.py: 0
+[2014-09-20 17:29:04] EDIT Juego/controllers/default.py: 0
+[2014-09-20 17:29:56] CREATE default/Tema.html: 0
+[2014-09-20 17:30:19] EDIT Juego/views/default/Tema.html: -1
+[2014-09-20 17:36:42] EDIT Juego/views/default/Tema.html: 12
+[2014-09-20 17:37:40] EDIT Juego/views/default/Tema.html: 1
+[2014-09-20 17:37:55] EDIT Juego/views/default/Tema.html: 0
+[2014-09-20 17:38:57] EDIT Juego/views/default/Tema.html: 0
+[2014-09-20 17:39:45] EDIT Juego/controllers/default.py: 0
+[2014-09-20 17:43:57] EDIT Juego/controllers/default.py: -1

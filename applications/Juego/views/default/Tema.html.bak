@@ -1,0 +1,16 @@
+{{extend 'layout.html'}}
+{{=form}}
+
+<table class table>
+    <tr><th>Otros Temas</th></tr>
+{{for tema in rows:}}
+    <tr>
+    <td>
+        {{=tema.Titulo}}
+    </td>
+    <td>
+        <a href={{=URL('Pregunta',args=tema.Titulo)}}>Agregar preguntas</a>
+    </td>
+    </tr>
+    {{pass}}
+</table>
