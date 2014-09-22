@@ -1,8 +1,13 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-<h3><a href={{=URL('Tema')}}>Agregar Tema</a></h3>
 <h1>Temas</h1>
 {{for temas in rows:}}
- <a href={{=URL('Pregunta',args=temas.Titulo)}}>{{=temas.Titulo}}</a>
+ <div class="well">
+     <h3>{{=temas.Titulo}}</h3>      
+     <a href={{=URL('Pregunta',args=temas.Titulo)}}></br>Agregar Preguntas</a>
+     <a href={{=URL('#')}}></br><h4>Jugar</h4></a>
+</div>
 {{pass}}
+
+<h4 class="text-right"><a href={{=URL('Tema')}}>Agregar Tema</a></h4>

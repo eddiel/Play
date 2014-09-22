@@ -1,0 +1,20 @@
+{{extend 'layout.html'}}
+<h2>{{=session.Tema[0].Titulo}}</h2>
+<div class="well">
+    Partida {{=PartidaID}}
+</div>
+<div class="well">
+    {{for participante in session.Equipos:}}
+      </br> Participante:{{=participante.Nombre}}
+    {{pass}}
+    </div>
+<div class="well">
+    {{for pregunta in session.preguntas:}}
+    </br> Pregunta:{{=pregunta.pregunta}}
+{{pass}}
+</div>
+
+
+<a href="{{=URL('JuegoPregunta',args=session.Tema[0].id)}}" data-toggle="modal">link</a>
+ 
+<div id="response_modal" class="modal hide fade"></div>

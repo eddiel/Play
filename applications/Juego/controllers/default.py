@@ -98,3 +98,58 @@ def Pregunta():
     form=SQLFORM(db.Pregunta).process()
     rows = db(db.Pregunta.id_tema==Tema.id).select()
     return locals()
+
+def Partida():
+    Tema=GetTema()
+    Partida=db.Partida.insert(id_tema=Tema.id)
+    if Partida:
+        redirect(URL('Equipo',args=Partida))
+    else:
+         session.flash=T('Problemas en query')
+    return locals()
+
+def Equipo():
+    Partida=request.args(0)
+    db.Equipo.Partida.default=Partida
+    db.Equipo.score.default=0
+    db.Equipo.racha.defualt=0
+    form=SQLFORM(db.Equipo)
+    if form.process().accepted:
+        redirect(URL('Equipo',args=Partida))
+    rows = db(db.Equipo.Partida==Partida).select()
+    return locals()
+
+def Juego():
+    PartidaID=request.args(0)
+    session.Equipos=db(db.Equipo.Partida==PartidaID).select()
+    session.Partida=db(db.Partida.id==PartidaID).select()
+    session.Tema=db(db.Tema.id==session.Partida[0].id_tema).select()
+    session.preguntas=db(db.Pregunta.id_tema==session.Partida[0].id_tema).select()
+    return locals()
+
+def JuegoPregunta():
+    idPregunta=session.preguntas
+    Pregunta=db(db.Pregunta.id==idPregunta[0]).select()
+    return locals()
+
+def SetScore():
+      vars=request.post_vars
+      if vars:
+            print 'entra al if'
+            id=vars.id
+            equipo=db.Equipo(id)
+            racha=GetRacha(equipo)
+            racha=int(racha)
+            if vars.direct=='down':
+                racha=1
+            print racha
+            if equipo:
+                equipo.update_record(score=equipo.score+(100*(int(racha))))
+                equipo.update_record(racha=racha)
+      return str(equipo.score)
+
+def GetRacha(equipo):
+    racha=equipo.racha
+    if racha< 5:
+        racha=racha+1
+    return str(racha)

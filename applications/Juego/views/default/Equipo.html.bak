@@ -1,0 +1,10 @@
+{{extend 'layout.html'}}
+<h4>Ingrese Participantes</h4>
+{{=form}}
+<table class="table">
+    <tr><th>Participante:</th><tr>
+    {{for participante in rows:}}
+    <tr><td>{{=participante.Nombre}}</td></tr>
+    {{pass}}
+</table>
+<a href={{=URL('Juego',args=request.args)}}>

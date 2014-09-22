@@ -1,5 +1,5 @@
 (dp1
-S'Nombre'
+S'nombre'
 p2
 (dp3
 S'length'
@@ -30,7 +30,7 @@ I512
 sg5
 I00
 sg6
-I4
+I5
 sg7
 S'INTEGER'
 p14
@@ -47,7 +47,7 @@ I512
 sg5
 I00
 sg6
-I3
+I4
 sg7
 S'INTEGER'
 p18
@@ -70,5 +70,23 @@ p21
 sg9
 I00
 sg10
-g19
+S'id'
+p22
+ssS'partida'
+p23
+(dp24
+g4
+I512
+sg5
+I00
+sg6
+I3
+sg7
+S'INTEGER REFERENCES Partida (id) ON DELETE CASCADE'
+p25
+sg9
+I00
+sg10
+S'reference Partida'
+p26
 ss.
