@@ -120,6 +120,7 @@ def Equipo():
     return locals()
 
 def Juego():
+    session.index=0
     PartidaID=request.args(0)
     session.Equipos=db(db.Equipo.Partida==PartidaID).select()
     session.Partida=db(db.Partida.id==PartidaID).select()
@@ -128,28 +129,30 @@ def Juego():
     return locals()
 
 def JuegoPregunta():
-    idPregunta=session.preguntas
-    Pregunta=db(db.Pregunta.id==idPregunta[0]).select()
+    Pregunta=session.preguntas[session.index]
     return locals()
 
 def SetScore():
-      vars=request.post_vars
-      if vars:
-            print 'entra al if'
-            id=vars.id
-            equipo=db.Equipo(id)
-            racha=GetRacha(equipo)
-            racha=int(racha)
-            if vars.direct=='down':
-                racha=1
-            print racha
-            if equipo:
-                equipo.update_record(score=equipo.score+(100*(int(racha))))
-                equipo.update_record(racha=racha)
-      return str(equipo.score)
+    vars=request.get_vars
+    print vars
+    if vars:
+          print 'entra al if'
+          id=vars.id
+          equipo=db.Equipo(id)
+          if vars.direct=="down":
+              racha=0
+          else:
+              racha=int(GetRacha(equipo.racha))
 
-def GetRacha(equipo):
-    racha=equipo.racha
+          print racha
+          if equipo:
+             equipo.update_record(score=equipo.score+(racha*100))
+             equipo.update_record(racha=racha)
+    return response.json([{'racha':racha},{'score':equipo.score}])
+
+def GetRacha(racha):
+    print 'racha'*racha
     if racha< 5:
         racha=racha+1
+        print racha
     return str(racha)

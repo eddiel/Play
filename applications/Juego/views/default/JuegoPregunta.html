@@ -1,18 +1,22 @@
 <script language="javascript">
-var max_time = 10;
+var max_time = 3;
 var cinterval;
 
 function ajax_score(t,direct){
-    id=jQuery(t).attr('data-id');
-    jQuery.ajax({method:'post',url:'{{=URL('SetScore')}}',
-                data:{'id':id,'direct':direct},
-                success:function(data){
-                jQuery(t).('#score').html(data);
+        var selection=jQuery(t).parent()
+        var id=jQuery(selection).attr('data-id');
+    jQuery.ajax({method:'get',url:'{{=URL('SetScore')}}',
+                 data:{'id':id,'direct':direct},
+                success: function (data){
+        var decode=jQuery.parseJSON(data);
+        var x=jQuery(selection).next().next().html('Score:'+decode[1].score);
+        jQuery(selection).next().html('X'+decode[0].racha);
     }});
-    }
+}
     jQuery(function(){
-        jQuery('.plus').click(function(){ajax_score(this);});
-        jQuery('.down').click(function(){ajax_score(this,false);})
+        jQuery('.plus').click(function(){ajax_score(this)});
+        jQuery('.down').click(function(){ajax_score(this,'down');})
+        jQuery('#siguiente').click(function(){$('#response_modal').load('{{=URL('JuegoPregunta',args=session.Tema[0].id)}}');})
                                      });
 function countdown_timer(){
   // decrease timer
@@ -40,17 +44,26 @@ cinterval = setInterval('countdown_timer()', 1000);
 
 
 <div class="modal-body">
-	<h2>{{=Pregunta[0].pregunta}}</2>
-    <h1 id="countdown" style="text-align: center">10</h1>
+	<h2>{{=Pregunta.pregunta}}</2>
+    <h1 id="countdown" style="text-align: center">3</h1>
     <div id="respuesta" style="display:none"><button onclick="respuesta()" class="btn btn-info">Ver Respuesta</button></div>
-    <div id="resultado" style="display:none"><h4>Respuesta: {{=Pregunta[0].respuesta}}</h4></div>
+    <div id="resultado" style="display:none"><h4>Respuesta: {{=Pregunta.respuesta}}</h4></div>
+    
     <div id="participantes" style="display:none">
-    {{for participante in session.Equipos:}}
-    <div id="participante" class="well"><h4 class="span1">{{=participante.Nombre}}</h4><button data-id="{{=participante.id}}" class="span1 plus"><i class="icon-ok"></i></button><button class="span1 down" data-id="{{=participante.id}}"><i class="icon-remove"></i></button>
-    <div class="span1">X{{=participante.racha}}</div><div classs="span1" id="score">Score:{{=participante.score}}</div>
+        {{for participante in session.Equipos:}}
+        <div id="participante" class="well">
+                <h4 class="span1">{{=participante.Nombre}}</h4>
+            <div id="controles" data-id="{{=participante.id}}"><button  class="span1 plus"><i class="icon-ok"></i></button><button class="span1 down"><i class="icon-remove"></i></button></div>
+            <div class="span1" id="racha">X{{=participante.racha}}</div><div classs="span1 score" id="score" data-id="{{=participante.id}}">Score:{{=participante.score}}</div>
 </div>
- {{pass}}
+        {{pass}}
 </div>
 <div class="modal-footer">
 	<a class="btn" data-dismiss="modal">Cerrar</a>
+    {{if session.index < len(session.preguntas)-1:}}
+        {{session.index=session.index+1}}
+        <a class="btn" id="siguiente">Siguiente</a>
+    {{else:}}
+    <a class="btn" data-dismiss="modal">Finalizar</a>
+    {{pass}}
 </div>
