@@ -121,15 +121,16 @@ def Equipo():
 
 def Juego():
     session.index=0
-    PartidaID=request.args(0)
-    session.Equipos=db(db.Equipo.Partida==PartidaID).select()
-    session.Partida=db(db.Partida.id==PartidaID).select()
+    session.PartidaID=request.args(0)
+    session.Equipos=db(db.Equipo.Partida==session.PartidaID).select()
+    session.Partida=db(db.Partida.id==session.PartidaID).select()
     session.Tema=db(db.Tema.id==session.Partida[0].id_tema).select()
     session.preguntas=db(db.Pregunta.id_tema==session.Partida[0].id_tema).select()
     return locals()
 
 def JuegoPregunta():
     Pregunta=session.preguntas[session.index]
+    session.Equipos=db(db.Equipo.Partida==session.PartidaID).select()
     return locals()
 
 def SetScore():
@@ -156,3 +157,7 @@ def GetRacha(racha):
         racha=racha+1
         print racha
     return str(racha)
+
+def resultados():
+   session.PartidaID=request.args(0)
+   return locals()

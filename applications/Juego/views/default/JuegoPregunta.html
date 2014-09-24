@@ -9,13 +9,17 @@ function ajax_score(t,direct){
                  data:{'id':id,'direct':direct},
                 success: function (data){
         var decode=jQuery.parseJSON(data);
+        if(decode[0].racha==0){decode[0].racha=1;}
         var x=jQuery(selection).next().next().html('Score:'+decode[1].score);
-        jQuery(selection).next().html('X'+decode[0].racha);
+        jQuery(selection).next().html('X'+decode[0].racha).animate({ fontSize : '22px' });
+        jQuery(selection).next().next().animate({ fontSize : '30px' });
+        jQuery(selection).parent().css("color","white");
+        jQuery(selection).parent().fadeOut(4000);
     }});
 }
     jQuery(function(){
-        jQuery('.plus').click(function(){ajax_score(this)});
-        jQuery('.down').click(function(){ajax_score(this,'down');})
+        jQuery('.plus').click(function(){ajax_score(this); jQuery(this).parent().parent().css("background-color","Green");});
+        jQuery('.down').click(function(){ajax_score(this,'down');jQuery(this).parent().parent().css("background-color","Red");})
         jQuery('#siguiente').click(function(){$('#response_modal').load('{{=URL('JuegoPregunta',args=session.Tema[0].id)}}');})
                                      });
 function countdown_timer(){
@@ -54,7 +58,8 @@ cinterval = setInterval('countdown_timer()', 1000);
         <div id="participante" class="well">
                 <h4 class="span1">{{=participante.Nombre}}</h4>
             <div id="controles" data-id="{{=participante.id}}"><button  class="span1 plus"><i class="icon-ok"></i></button><button class="span1 down"><i class="icon-remove"></i></button></div>
-            <div class="span1" id="racha">X{{=participante.racha}}</div><div classs="span1 score" id="score" data-id="{{=participante.id}}">Score:{{=participante.score}}</div>
+            <div class="span1" id="racha">
+               X {{=participante.racha}}</div><div classs="span1 score" id="score" data-id="{{=participante.id}}">Score:{{=participante.score}}</div>
 </div>
         {{pass}}
 </div>

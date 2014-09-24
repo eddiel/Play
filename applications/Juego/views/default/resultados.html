@@ -1,0 +1,5 @@
+{{extend 'layout.html'}}
+<h1>{{=session.Tema[0].Titulo}}</h1>
+{{for i in session.Equipos:}}
+{{=i}}
+{{pass}}
