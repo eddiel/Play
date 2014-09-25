@@ -1,5 +1,16 @@
 {{extend 'layout.html'}}
+<script language="javascript">
+$( document ).ready(function() {
+    $( ".well" ).first().children().first().append("<img id='icon' src='{{=URL('static/images','corona.png')}}' height='100px' width='100px' />");;
+});
+</script>
+
 <h1>{{=session.Tema[0].Titulo}}</h1>
-{{for i in session.Equipos:}}
-{{=i}}
+
+<div class="resultados">{{for equipo in Equipos:}}
+<div class="well">
+<h2>{{=equipo.Nombre}}                                           </h2>
+<h3> Puntuación:{{=equipo.score}}    </h3>
+</div>
 {{pass}}
+</div>

@@ -160,5 +160,5 @@ def GetRacha(racha):
 
 def resultados():
    session.PartidaID=request.args(0)
-   session.Equipos=db(db.Equipo.Partida==session.PartidaID).select()
+   Equipos=db(db.Equipo.Partida==session.PartidaID).select(orderby=~db.Equipo.score)
    return locals()

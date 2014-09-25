@@ -59,7 +59,7 @@ cinterval = setInterval('countdown_timer()', 1000);
                 <h4 class="span1">{{=participante.Nombre}}</h4>
             <div id="controles" data-id="{{=participante.id}}"><button  class="span1 plus"><i class="icon-ok"></i></button><button class="span1 down"><i class="icon-remove"></i></button></div>
             <div class="span1" id="racha">
-               100 X {{=participante.racha}}</div><div classs="span1 score" id="score" data-id="{{=participante.id}}">Score:{{=participante.score}}</div>
+               X {{=participante.racha}}</div><div classs="span1 score" id="score" data-id="{{=participante.id}}">Score:{{=participante.score}}</div>
 </div>
         {{pass}}
 </div>
@@ -69,6 +69,6 @@ cinterval = setInterval('countdown_timer()', 1000);
         {{session.index=session.index+1}}
         <a class="btn" id="siguiente">Siguiente</a>
     {{else:}}
-    <a class="btn" data-dismiss="modal">Finalizar</a>
+    <a class="btn" data-dismiss="modal" href="{{=URL('resultados',args=session.PartidaID)}}">Finalizar</a>
     {{pass}}
 </div>

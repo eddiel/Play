@@ -112,7 +112,7 @@ def Equipo():
     Partida=request.args(0)
     db.Equipo.Partida.default=Partida
     db.Equipo.score.default=0
-    db.Equipo.racha.defualt=0
+    db.Equipo.racha.default=0
     form=SQLFORM(db.Equipo)
     if form.process().accepted:
         redirect(URL('Equipo',args=Partida))
@@ -160,4 +160,5 @@ def GetRacha(racha):
 
 def resultados():
    session.PartidaID=request.args(0)
+   Equipos=db(db.Equipo.Partida==session.PartidaID).select(orderby=~db.Equipo.score)
    return locals()
